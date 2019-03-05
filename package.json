@@ -1,0 +1,25 @@
+{
+  "name": "puz-parser",
+  "version": "0.0.1",
+  "description": "Library for manipulating Across Lite crossword puzzles",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lennonc/puz-parser"
+  },
+  "keywords": [
+    "nodejs",
+    ".puz",
+    "crossword"
+  ],
+  "author": "Lennon Chimbumu",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
+  }
+}
