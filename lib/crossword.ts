@@ -1,13 +1,14 @@
 import fs from 'fs';
+import Header from './header';
 
 export default class Crossword {
-  header?: any;
-  puzzle?: any;
-  details?: any;
-  board?: any;
+  public header?: any;
+  public puzzle?: any;
+  public details?: any;
+  public board?: any;
 
   constructor(options?: any) {
-    this.header = {};
+    this.header = new Header();
     this.puzzle = {};
     this.details = {};
     this.board = {};
