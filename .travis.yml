@@ -3,8 +3,21 @@ language: node_js
 node_js:
   - 14
 
+before_install:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+
 before_script:
+  - ./cc-test-reporter before-build
   - npm install
 
 script:
   - npm run test
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=2de2335e398f39eac3f8bee94bc9e3b477ceb5091c5b3c5c1383bc515cd36659
+
+# Pipe the coverage data to Code Climate
+after_script:
+  - ./cc-test-reporter after-build -t lcov --debug --exit-code $TRAVIS_TEST_RESULT
