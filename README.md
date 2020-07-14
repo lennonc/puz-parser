@@ -1,3 +1,5 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/85482642724777e4b282/maintainability)](https://codeclimate.com/github/lennonc/puz-parser/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/85482642724777e4b282/test_coverage)](https://codeclimate.com/github/lennonc/puz-parser/test_coverage)
+
 | Component | Offset | End | Length | Type | Description | 
 |--------------|-----------|--------|-----------|---------|----------------| 
 | Checksum | 0x00 | 0x01 | 0x2 | short | overall file checksum | 
