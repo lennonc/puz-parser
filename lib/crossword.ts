@@ -1,16 +1,19 @@
-const fs = require('fs');
+import fs from 'fs';
 
-const decodeSync = Symbol('decodeSync');
-const decode = Symbol('decode');
-module.exports = class Crossword {
-  constructor(options) {
+export default class Crossword {
+  header?: any;
+  puzzle?: any;
+  details?: any;
+  board?: any;
+
+  constructor(options?: any) {
     this.header = {};
     this.puzzle = {};
     this.details = {};
     this.board = {};
 
-    if (options && options.fileName) {
-      this[decodeSync](options.fileName);
+    if (options?.fileName) {
+      this.decodeSync(options.fileName);
     }
   }
 
@@ -19,12 +22,12 @@ module.exports = class Crossword {
   }
 
   // private methods
-  [decodeSync](fileName) {
+  private decodeSync(fileName: string) {
     const data = fs.readFileSync(fileName);
-    return this[decode](data);
+    return this.decode(data);
   }
 
-  [decode](data) {
+  private decode(data: any) {
     this.header.checksum = data.slice(0x00, 0x00 + 0x02).readInt16LE(0);
     this.header.fileMagic = data.slice(0x02, 0x02 + 0x0B).toString();
 
@@ -51,6 +54,37 @@ module.exports = class Crossword {
     const stateEnd = stateStart + cells;
 
     this.puzzle.solution = data.slice(solutionStart, solutionEnd).toString();
-    this.puzzle.state = data.slice(stateStart, stateEnd);
+    this.puzzle.state = data.slice(stateStart, stateEnd).toString();
+
+    // ********************* STRING SECTION *********************
+    var stringStart = stateEnd;
+    var remainder = data.slice(stringStart);
+    var fields = ['title', 'author', 'copyright'];
+    var clueStart = 0;
+
+
+    for (var i = 0, j = 0, fieldIndex = 0; i < remainder.length && fieldIndex < fields.length; i++) {
+      var caret = remainder[i];
+      if (caret === 0) {
+        this.header[fields[fieldIndex]] = remainder.slice(j, i).toString();
+        j = i + 1;
+        fieldIndex++;
+      }
+
+      if (fieldIndex === 2) {
+        clueStart = i + 1;
+      }
+    };
+
+    // this.details = {};
+
+    // remainder = data.slice(stringStart + clueStart + 1)
+    // remainder = Crossword.splitBufferAtNulls(remainder, 0x00);
+
+    // this.details.clues = [];
+
+    // for (var i = 0; i < this.header.numberOfClues; i++) {
+    //   this.details.clues.push(remainder[i].toString());
+    // }
   }
 };
