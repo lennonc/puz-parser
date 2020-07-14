@@ -3,7 +3,7 @@ module.exports = {
   bail: false,
   verbose: true,
   collectCoverage: true,
-  coverageDirectory: '__tests__/coverage/',
+  coverageDirectory: 'coverage/',
   coveragePathIgnorePatterns: ['<rootDir>/node_modules/'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
